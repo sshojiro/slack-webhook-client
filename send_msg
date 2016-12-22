@@ -2,7 +2,7 @@
 
 send_msg () {
   val=`cat notes/$1.md`
-  echo 'payload={"username": "webhook" , "channel": "#chemspec-iot" , "text": "'"$val"'"}' \
+  echo 'payload={"username": "webhook" , "channel": "@sshojiro" , "text": "'"$val"'"}' \
     | sed -e 's/$/ \\n/g' > notes/$1.json
   curl -X POST \
     -d @notes/$1.json \
