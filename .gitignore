@@ -1,0 +1,4 @@
+*.jpg
+.token
+!sample.token
+*.pdf

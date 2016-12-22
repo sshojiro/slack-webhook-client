@@ -1,0 +1,12 @@
+#!/bin/bash
+
+send_msg () {
+  val=`cat notes/$1.md`
+  echo 'payload={"username": "webhook" , "channel": "#chemspec-iot" , "text": "'"$val"'"}' \
+    | sed -e 's/$/ \\n/g' > notes/$1.json
+  curl -X POST \
+    -d @notes/$1.json \
+    https://hooks.slack.com/services/$(cat config/.token) # web-hook url
+  rm notes/$1.json
+}
+send_msg $1
