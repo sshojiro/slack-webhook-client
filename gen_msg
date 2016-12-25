@@ -1,0 +1,14 @@
+#!/bin/bash
+
+gen_msg () {
+  if [ -z ${1+x} ]; then
+    DATE=`date +%Y-%m-%d`;
+  else
+    DATE=$(echo $1);
+  fi
+  echo "# "$(echo $DATE) > notes/$DATE.md
+  echo "## DONE" >> notes/$DATE.md
+  echo "- task1" >> notes/$DATE.md
+}
+
+gen_msg $1
