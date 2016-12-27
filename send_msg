@@ -1,12 +1,17 @@
 #!/bin/bash
 
 send_msg () {
-  val=`cat notes/$1.md`
+  if [ -z ${1+x} ]; then
+    DATE=`date +%Y-%m-%d`;
+  else
+    DATE=$(echo $1);
+  fi
+  val=`cat notes/$DATE.md`
   echo 'payload={"icon_emoji": ":japanese_goblin:", "username": "webhook" , "channel": "@sshojiro" , "text": "'"$val"'"}' \
-    | sed -e 's/$/ \\n/g' > notes/$1.json
+    | sed -e 's/$/ \\n/g' > notes/$DATE.json
   curl -X POST \
-    -d @notes/$1.json \
+    -d @notes/$DATE.json \
     https://hooks.slack.com/services/$(cat config/.token) # web-hook url
-  rm notes/$1.json
+  rm notes/$DATE.json
 }
 send_msg $1
